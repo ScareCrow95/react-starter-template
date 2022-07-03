@@ -6,6 +6,7 @@ import axios from 'axios'
 import { darkTheme } from '../theme/darkTheme'
 import { lightTheme } from '../theme/lightTheme'
 import { UIStore } from './uiStore'
+import { User } from './classes/User'
 
 export class RootStore {
   token = ''
@@ -13,10 +14,16 @@ export class RootStore {
    * @type {UIStore}
    */
   uiStore = null
+  toast = null
   constructor() {
     makeAutoObservable(this)
     this.uiStore = new UIStore(this)
   }
+
+  /**
+   * @type {User}
+   */
+  user = null
 
   showToast = (
     title,
@@ -25,10 +32,7 @@ export class RootStore {
     duration = 5000,
     isClosable = true
   ) => {
-    let toast = createStandaloneToast({
-      theme: this.uiStore.theme === 'light' ? lightTheme : darkTheme,
-    })
-    toast({
+    this.toast?.({
       title,
       description,
       status,
@@ -65,17 +69,10 @@ export class RootStore {
   }
 
   _handleError = (err) => {
-    console.log(err.response)
-    if (err.response?.status === 500) {
-      // console.log(err.response)
-
-      console.error(err.response?.data)
-    } else {
-      console.error(err)
-    }
+    console.error(err.response)
 
     this.showToast(
-      'Something went wrong, please try again.',
+      err?.response?.data || 'Something went wrong, please try again.',
       null,
       'error',
       7000,

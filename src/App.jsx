@@ -1,15 +1,19 @@
 import { ChakraProvider } from '@chakra-ui/react'
-import Login from './pages/Login'
+import { createStandaloneToast } from '@chakra-ui/toast'
+import Home from './pages/Home'
 import { useStores } from './store/rootStore'
 import { darkTheme } from './theme/darkTheme'
 import { lightTheme } from './theme/lightTheme'
-
+const { ToastContainer, toast } = createStandaloneToast({ theme: darkTheme })
 function App() {
   const rootStore = useStores()
+  rootStore.toast = toast
+
   return (
     <ChakraProvider
       theme={rootStore.uiStore.theme === 'light' ? lightTheme : darkTheme}>
-      <Login />
+      <Home />
+      <ToastContainer />
     </ChakraProvider>
   )
 }
