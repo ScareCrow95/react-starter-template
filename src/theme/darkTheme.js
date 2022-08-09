@@ -10,7 +10,7 @@ const breakpoints = createBreakpoints({
 })
 
 const colors = {
-  secondary: {
+  sec: {
     100: '#2d2d2d',
     150: '#262626',
     200: '#212121',
@@ -30,7 +30,7 @@ const colors = {
     75: '#505050',
     100: '#555',
   },
-  primary: {
+  pr: {
     100: '#ec8c10',
     200: '#e85900',
   },

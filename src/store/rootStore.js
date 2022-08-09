@@ -21,6 +21,11 @@ export class RootStore {
   }
 
   /**
+   * @type {Map<string,Note>}
+   */
+  events = new observable.map()
+
+  /**
    * @type {User}
    */
   user = null
